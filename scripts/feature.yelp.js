@@ -37,7 +37,7 @@ module.exports =  (robot) =>  {
   let validateYelpTokenSecret = (maybe) => {
     return maybe.isSome()
       ? Validation.Success(maybe.value)
-      : monet.Validation.Fail(["😩 no yelp token secret"])
+      : Validation.Fail(["😩 no yelp token secret"])
   }
 
 
