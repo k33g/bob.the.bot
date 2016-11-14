@@ -14,6 +14,18 @@ module.exports =  (robot) =>  {
     res.send({message:"💙"});
   });
 
+  robot.router.post('/hey/bob', (req, res) => {
+    res.send({message:"💙"});
+  });
+
+  robot.router.post('/ci', (req, res) => {
+    fetchSlackRoom({roomName:"ci"}).then(room => {
+      robot.messageRoom(room.id, req.body.message)
+    })
+    res.status(200).end()
+  })
+
+
 
   // say hello
   if(process.env.BOB_THE_BOT_ENV=="dev") {
