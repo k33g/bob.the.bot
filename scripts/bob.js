@@ -11,6 +11,9 @@ module.exports =  (robot) =>  {
   // http://localhost:port/hey/hubot
   // export EXPRESS_PORT=port
   robot.router.get('/hey/bob', (req, res) => {
+    fetchSlackRoom({roomName:"ci"}).then(room => {
+      robot.messageRoom(room.id, {message:"hello"})
+    })
     res.send({message:"💙"});
   });
 
@@ -18,7 +21,18 @@ module.exports =  (robot) =>  {
     res.send({message:"💙"});
   });
 
+  robot.router.get('/ci', (req, res) => {
+    console.log("GET", req.body.message)
+
+    fetchSlackRoom({roomName:"ci"}).then(room => {
+      robot.messageRoom(room.id, req.body.message)
+    })
+    res.status(200).end()
+  })
+
   robot.router.post('/ci', (req, res) => {
+    console.log("POST", req.body.message)
+
     fetchSlackRoom({roomName:"ci"}).then(room => {
       robot.messageRoom(room.id, req.body.message)
     })
